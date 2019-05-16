@@ -25,7 +25,7 @@ for x in href_tag_part:
     name.append(x.text)
 #now getting list of companies to scrape
 list_of_coins=[]
-for x in Level_5:
+for x in href_tag_part:
     list_of_coins.append(x.get('href'))
 start_index=200     #mention start index for the company
 end_index=2178      #mention end index for the company
