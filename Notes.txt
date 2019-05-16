@@ -1,0 +1,65 @@
+We study the impact of the 2015 and 2016 minimum wage hikes in Seattle using administrative employment data from Washington State covering the period 2005 through the third quarter of 2016. Washington’s Employment Security Department collects quarterly payroll records for all workers who received wages in Washington and are covered by Unemployment Insurance (UI).9 Washington is one of four states in the US that collects not only data on earnings, but also on hours worked during the quarter. Employers are required to report actual hours worked for employees whose hours are tracked (i.e. hourly workers), and report either actual hours worked or total number of hours assuming a 40 hour work week for employees whose hours are not tracked (i.e. salaried workers).10
+
+prior lit. has used proxies for wages, such as teenager or retail wages
+
+Firms with multiple locations have the option of establishing a separate account for each location, or a common account. Geographic identification in the data is at the account level. As such, we can uniquely identify business location only for single-site firms and those multi-site firms opting for separate accounts by location.
+
+The ESD data contain industry (NAICS) codes, which permit us to estimate results using the restaurant industry proxy used in much of the prior literature
+
+As indicated in section 2 above, we focus our analysis on jobs with calculated hourly wages below a fixed (inflation-adjusted) threshold.
+
+Directly estimating a reaction function would require a longitudinal analysis of wages paid before and after a wage increase, complicated in this application by the high turnover rates common in the low-wage job market.17
+
+
+employment losses associated with Seattle’s mandated wage increases are in fact large enough to have resulted in net reductions in payroll expenses – and total employee earnings – in the low-wage job market
+
+We further examine the impact of other methodological choices on our estimates. Prior studies have typically drawn “control” cases from geographic regions immediately adjoining the “treatment” region. This could yield biased effect estimates to the extent that control regions alter wages in response to the policy change in the treatment region.
+
+Our analysis focusing on restaurant employment at all wage levels, analogous to many prior studies, yields minimum wage employment impact estimates near zero. Estimated employment effects are higher when examining only low-wage jobs in the restaurant industry, and when examining total hours worked rather than employee headcount.
+
+The data identify business entities as UI account holders. Firms with multiple locations have the option of establishing a separate account for each location, or a common account. Geographic identification in the data is at the account level.
+
+DV ???????=??????/ ????,??-4-1
+
+First, we consider a simple difference-in-differences specification, in which the outcomes of the treated region (Seattle in our case) are compared to the outcomes of a neighboring control region.
+
+???????=????+????+S??????????9??=1+??????,
+where ???? is a region fixed effect, ???? is a period fixed effect, is the treatment effect of the Ordinance in quarter ??=?? (corresponding to the nine quarters after the Ordinance was passed), ?????? is an indicator that equals one for the treated region during which ??=??, and is an idiosyncratic shock.
+
+Since our interest is in the cumulative effect of the Ordinance on each outcome, we convert these coefficients into cumulative changes, using the following rules. For quarters one to three ??????????=????; for quarters four to eight, ??????????=(1+????)(1+????-4)-1; and for quarter nine ??9??????=(1+??9)(1+??5)(1+ ??1)-1. We present all results in terms of cumulative changes, and adjust the standard errors accordingly using the delta method.
+We account for this correlation by clustering the standard errors at the region and year level.
+
+Difference-in-differences specifications assume that the treated and control region have the same trends in the absence of the policy (parallel trends assumption), and will generally fail to produce consistent treatment effect estimates if this assumption is not true. It is prudent to be especially cautious about the parallel trends assumption given that the greater Seattle region experienced rapid economic growth coming out of the Great Recession, and the pace of recovery could have varied in different sub-regions. As we show below, our two difference-in-differences specifications fail a falsification test, which suggests divergent trends.
+To overcome this concern, we estimate the impact of the minimum wage using two methods which allow for flexible pre-policy trends in control and treated regions: the synthetic
+21
+control estimator (Abadie and Gardeazabal, 2003) and the interactive fixed effects estimator
+
+Both methods assume that changes in employment in each region can be represented as a
+composition of ?? unobserved linear factors ?????? :
+(3) ??????? = S ???????????? + S ??????????
+9
+??=1 + ??????
+????
+=1 ,
+where ?????? is an unobserved factor, common across all regions in each year-quarter, and ?????? is a
+region-specific factor loading, constant across time.
+
+The unobserved factors can be thought of as common economic shocks which affect all
+regions at the same time, such as an exchange rate shock, common demand shock, or changes in
+weather. However, regions are allowed to have different sensitivity in response to these shocks.
+As a result, the treated and control regions are no longer required to have parallel trends.
+
+The ESD data contain industry (NAICS) codes, which permit us to estimate results using the restaurant industry proxy used in much of the prior literature (Addison, Blackburn and Cotti, 2012, 2014; Dube, Lester and Reich, 2010; Dube, Lester and Reich,
+
+While the preponderance of evidence suggests that a low-wage threshold slightly above the statutory minimum poses little risk of miscoding jobs as lost when they have really been
+19 This pattern exemplifies the “bunching” referenced in Cengiz et al. (2017), and can be interpreted as evidence that significant numbers of lower-paid workers had their wages increased to comply with the law.
+20 The 50% confidence level is employed here as the goal is to assess the hypothesis that the true effect is zero, rather than the traditional alternate hypothesis that the true effect is not zero.
+21 Again referencing Cengiz et al. (2017), and foreshadowing results to be presented, this pattern suggests that the second minimum wage increase led to a proportionately stronger reduction in employment opportunities.
+18
+promoted to higher wage levels, in our preferred specifications we report findings based on a relatively conservative $19 threshold. The $19 threshold is roughly twice the initial value of the minimum wage, a level beyond which cascading effects are less likely to
+
+We estimate effect of the Ordinance on changes in employment and wages in Seattle relative to the 2nd quarter of 2014, when the Ordinance was passed. From this baseline period, we analyze effects over the next nine calendar quarters. The first three correspond to the period after the Ordinance was passed but before the first phase-in; this period is considered “post-treatment” in our analysis so that we can assess whether anticipatory effects ensued. The minimum wage reached as high as $11/hour in the fourth through sixth quarters after baseline and as high as $13/hour in the remaining quarters. The “pre-treatment” period includes quarterly observations beginning in 2005.
+
+We implement the synthetic control and interactive fixed effects estimators by approximating Seattle’s economy using data on employment trends across Public Use Microdata Areas (PUMAs) in Washington State. A PUMA is a geographic unit defined by the U.S. Census Bureau with a population of approximately 100,000 people, designed to stay within county boundaries when possible.26 We exclude King County PUMAs from analysis because of potential spillover effects. The remainder of Washington includes 40 PUMAs (see Figure 3).
+
+We do not find strong evidence that wages rose in anticipation of enforcement during the three quarters following passage of the law. The small coefficients range from 0.3% to 0.7% and most are statistically insignificant.
