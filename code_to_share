@@ -1,0 +1,51 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+import re
+import pandas as pd
+import os
+import time
+ashwin_directory= str('C:/Users/ashwi/OneDrive/coins_scrapping')
+abhishek_directory=str('D:/OneDrive - Indian School of Business/ICO/Data/Coinmarketcap')
+os.chdir(ashwin_directory) #choose your directory
+driver = webdriver.Chrome('C:/chromedriver.exe') #webdriver for ashwin
+#driver = webdriver.Chrome('C:/unzipped/chromedriver_win32/chromedriver.exe') #webdriver for abhishek
+#steps below are mandatory and common for all scarpping
+driver.get('https://coinmarketcap.com/all/views/all')
+page_soup=BeautifulSoup(driver.page_source,'lxml')
+Level_1 = page_soup.findAll("div",{'class':'dataTables_wrapper no-footer'})
+Level_2 = Level_1[0]
+Level_3=Level_2.table
+Level_5 = Level_3.findAll('a',{'class':'currency-name-container link-secondary'})
+#now getting list of companies to scrape
+list_of_coins=[]
+for x in Level_5:
+    list_of_coins.append(x.get('href'))
+start_index=0   #mention start index for the company
+end_index=100      #mention end index for the company
+coin_count=1
+for x in range(start_index,end_index):
+    try:
+        
+        coin_start=time.time()
+        driver.get('https://coinmarketcap.com'+list_of_coins[x]+'historical-data/?start=20130428&end=20190516')
+        page_soup_02=BeautifulSoup(driver.page_source,'lxml')
+        Level_090 = page_soup_02.findAll('div',{'id':'historical-data'})[0]
+        Level_091=Level_090.table
+        #print(len(Level_091))
+        df=pd.read_html(str(Level_091),header=0)
+        df_final=df[0]
+        df_final.to_csv('Historical data of '+str(list_of_companies[x])+'.csv')
+        coin_end=time.time()
+        total_scrapping_time_seconds= coin_end-coin_start
+        total_scrapping_time_minutes=int(total_scrapping_time_seconds/60)-60*int(total_scrapping_time_seconds/3600)
+        total_scrapping_time_hours=int(total_scrapping_time_seconds/3600)
+        print(('Scrapping completed for {} coins').format(coin_count))
+        print(('Last coin scrapped was {} ').format(list_of_coins[x]))
+        print(('Last coin was scrapped in {} seconds').format(total_scrapping_time_seconds))
+        print(('Total time taken for scrapping {} companies is {} hours and {} minutes').format(coin_count,total_scrapping_time_hours,total_scrapping_time_minutes))
+        coin_count=coin_count+1
+    except:
+        time.sleep(20)
+        continue
+
