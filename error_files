@@ -1,0 +1,60 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+import re
+import pandas as pd
+import os
+
+directory='C:/Users/ashwi/OneDrive/coins_scrapping/leftover_coins'
+os.chdir(directory)
+driver = webdriver.Chrome('C:/chromedriver.exe') #webdriver for ashwin
+#driver = webdriver.Chrome('C:/unzipped/chromedriver_win32/chromedriver.exe') #webdriver for abhishek
+#steps below are mandatory and common for all scarpping
+driver.get('https://coinmarketcap.com/all/views/all')
+page_soup=BeautifulSoup(driver.page_source,'lxml') #converting webpage into soup object
+find_div_section = page_soup.findAll("div",{'class':'dataTables_wrapper no-footer'}) #finding list of div section conatining specified table
+div_section = find_div_section[0]
+table_=div_section.table
+href_tag_part = table_.findAll('a',{'class':'currency-name-container link-secondary'})
+name=[]
+for x in href_tag_part:
+    name.append(x.text)
+#now getting list of companies to scrape
+list_of_coins=[]
+for x in href_tag_part:
+    list_of_coins.append(x.get('href'))
+name_error=[]
+df_error=pd.read_csv('error_files.csv')
+name_error=df_error['coin_name']
+y=0
+name_error_index=[]
+for x in name:
+    for etc in name_error:
+        if x==etc:
+            name_error_index.append(y)
+    y=y+1
+    
+for x in name_error_index:
+    try:
+        driver.set_page_load_timeout(80)
+        coin_start=time.time()
+        driver.get('https://coinmarketcap.com'+list_of_coins[x]+'historical-data/?start=20130428&end=20190516')
+        page_soup_02=BeautifulSoup(driver.page_source,'lxml')
+        table_historical_data_div = page_soup_02.findAll('div',{'id':'historical-data'})[0]
+        table_historical_data=table_historical_data_div.table
+        df=pd.read_html(str(table_historical_data),header=0)
+        df_final=df[0] #coverting list to dataframe
+        df_final.to_csv('Historical data of '+str(name[x])+'.csv')
+        coin_end=time.time()
+        total_scrapping_time_seconds= coin_end-coin_start
+        total_scrapping_time_minutes=int(total_scrapping_time_seconds/60)-60*int(total_scrapping_time_seconds/3600)
+        total_scrapping_time_hours=int(total_scrapping_time_seconds/3600)
+        print(('Scrapping completed for {} coins').format(coin_count))
+        print(('Last coin scrapped was {} ').format(name[x]))
+        print(('Last coin was scrapped in {} seconds').format(total_scrapping_time_seconds))
+        print(('Total time taken for scrapping {} companies is {} hours and {} minutes\n').format(coin_count,total_scrapping_time_hours,total_scrapping_time_minutes))
+        coin_count=coin_count+1
+    except:
+        error_coins.append(name[x])
+        time.sleep(10)
+        continue
