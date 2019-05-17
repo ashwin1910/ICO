@@ -1,0 +1,40 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+import re
+import pandas as pd
+import os
+
+driver = webdriver.Chrome('C:/chromedriver.exe')
+driver.get('https://coinmarketcap.com/all/views/all/')
+page_soup=BeautifulSoup(driver.page_source,'lxml')
+Level_1 = page_soup.findAll("div",{'class':'dataTables_wrapper no-footer'}) 
+Level_2 = Level_1[0]
+Level_3=Level_2.table
+Level_5 = Level_3.findAll('a',{'class':'currency-name-container link-secondary'})
+name=[]
+for x in Level_5:
+    name.append(x.text)
+df=pd.read_html(str(Level_3),header=0)
+df_final=df[0]
+df_final
+
+symbols=df_final['Symbol']
+symbols
+
+os.chdir('C:/Users/ashwi/OneDrive/coins_scrapping/coins_scrapped')
+counter=0
+for x in range(100):
+    try:
+        df_=pd.read_csv(('Historical data of {}.csv').format(name[x]))
+        name_list=[]
+        symbol_list=[]
+        for y in range(len(df_)):
+            name_list.append(name[x])
+            symbol_list.append(symbols[x])
+        df_['Name']=name_list
+        df_['Symbols']=symbol_list
+        counter=counter+1
+        df_.to_csv(('Historical data of {}.csv').format(name[x]))
+    except:
+        continue
